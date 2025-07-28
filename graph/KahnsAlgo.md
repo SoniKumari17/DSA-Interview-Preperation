@@ -64,4 +64,20 @@ class Solution {
         return kanshAlgo(g, indegree, q);
     }
 }
+````
+### Jaldi Samajhne ke liye Summary:
+
+1. **Graph banaya** adjacency list ke form me.
+
+2. **Indegree array banayi**: har node pe kitni edges aa rahi hain, wo count kiya.
+
+3. **Queue me un nodes ko daala** jinka `indegree == 0` tha. Ye wo nodes hain jinke pehle koi node nahi aata.
+
+4. **Queue se ek ek node nikala**, uske har neighbour ka `indegree--` kiya.
+
+5. **Agar neighbour ka indegree 0 ho gaya**, to usko bhi queue me daala.
+
+6. Ye process **tab tak chalaate rahe jab tak queue khali na ho jaye**.
+
+7. Jo bhi nodes queue se nikle, unhe ek list me daala. **Ye hi final Topological Sort hai**.
 
