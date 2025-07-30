@@ -2,15 +2,42 @@
 #  Dijkstra's Algorithm Using PriorityQueue (Java) 
 ## Intuition:
 
-Hum ek graph ke andar source node se har node tak ka **shortest distance** nikalna chahte hain. 
+## 🔍 Intuition (Dijkstra's Algorithm)
 
-Dijkstra ka idea ye hai:
-- Sabse pehle source node ko le lo.
-- Fir har step par **minimum distance** wala node uthao (isiliye PriorityQueue use karte hain).
-- Aur us node ke neighbours ka distance update karo agar shorter path milta hai.
-- Jab tak queue khali na ho, repeat karo.
+We will use a **Priority Queue (Min-Heap)** because our goal is to find the **minimum distance** from the source node to all other nodes.
 
-Isme hum PriorityQueue ka use karte hain taki har baar minimum distance wale node ko fast nikaal sakein.
+Since we always want the node with the **smallest current distance**, a priority queue is ideal — it automatically gives us the node with the minimum distance at the top.
+
+Each element we store in the priority queue will be in the form of:  
+`(node, distance from source)`
+
+---
+
+### ✅ Distance Array:
+We’ll maintain a **distance array** called `dist[]` where:
+
+- `dist[i]` = shortest distance from source to node `i`.
+- Initially, set all distances to **infinity** (`1e9`) since we don’t know the path yet.
+- Set `dist[src] = 0` because the distance from the source to itself is always 0.
+
+Also, add `(src, 0)` to the priority queue to begin processing.
+
+---
+
+### 🔁 Looping Through the Queue:
+Then, we'll run a loop **until the queue becomes empty**.
+
+- In each iteration, we remove the top node (the one with the current minimum distance).
+- Then, we check all its **children (adjacent nodes)**.
+- For each child, we check:  
+  **Can we reach this child with a shorter path through the current node?**  
+  If yes, we update the distance and push that child into the priority queue.
+
+---
+
+### 🧠 In Short:
+The algorithm keeps choosing the shortest available path at every step.  
+So instead of exploring longer paths first, it builds the shortest paths piece by piece — using smaller steps to reach each node optimally.
 
 ---
 
