@@ -1,4 +1,4 @@
-#### Remove duplicates from Sorted Array
+#### 1.Remove duplicates from Sorted Array
 ```java
 class Solution {
     // Function to remove duplicates from the given array.
@@ -22,7 +22,7 @@ class Solution {
     }
 }
 ```
-#### Left Rotate an Array By D place :
+#### 2.Left Rotate an Array By D place :
 ```java 
 class Solution {
     void leftRotate(int[] arr, int d) {
@@ -126,3 +126,84 @@ class Solution {
 Time: O(n)
 Space: O(1)
 ```
+#### 3.Move all zeroes to the end
+Given:
+arr = [0, 1, 0, 3, 12]
+Output:
+[1, 3, 12, 0, 0]
+Order of non-zero elements preserve karna hai
+
+#### Approach 1: Brute Force (Using Extra Array)
+
+Ek new array banao aur pehle saare non-zero copy karo, fir baaki jagah zero bhar do.
+
+##### Steps
+
+Traverse array, non-zero elements ko ek new list me daalo.
+
+Fir baaki positions ko 0 se fill karo.
+
+Copy back agar inplace karna ho.
+```java
+class Solution {
+    void moveZeroes(int[] arr) {
+        int n = arr.length;
+        int[] temp = new int[n];
+        int index = 0;
+
+        // Step 1: Put non-zeros in temp
+        for (int i = 0; i < n; i++) {
+            if (arr[i] != 0) {
+                temp[index++] = arr[i];
+            }
+        }
+
+        // Step 2: Fill remaining with 0
+        while (index < n) {
+            temp[index++] = 0;
+        }
+
+        // Step 3: Copy back to original
+        for (int i = 0; i < n; i++) {
+            arr[i] = temp[i];
+        }
+    }
+}
+Time: O(n)
+Space: O(n)
+Not in-place → extra space use hota hai.
+```
+#### 🔹 Approach 2: Two-Pass In-place
+
+Ek pass me non-zero elements ko front me laao, fir baaki ko 0 fill karo.
+
+Steps
+
+Ek index pointer rakho pos = 0.
+
+Har non-zero element ko arr[pos++] me daalo.
+
+Jab sab non-zero ho gaye, remaining positions ko 0 set karo.
+```java
+class Solution {
+    void moveZeroes(int[] arr) {
+        int n = arr.length;
+        int pos = 0;
+
+        // Step 1: Put all non-zeros at start
+        for (int i = 0; i < n; i++) {
+            if (arr[i] != 0) {
+                arr[pos++] = arr[i];
+            }
+        }
+
+        // Step 2: Fill rest with 0
+        while (pos < n) {
+            arr[pos++] = 0;
+        }
+    }
+}
+Time: O(n)
+Space: O(1)
+```
+
