@@ -206,4 +206,50 @@ class Solution {
 Time: O(n)
 Space: O(1)
 ```
+#### 🔹 Approach 3: Optimal One-Pass (Two Pointer / Swap)
 
+Sabse famous aur efficient.
+
+#### Steps
+
+Ek pointer j rakho jo non-zero elements ka position track kare.
+
+Traverse karo array:
+
+Agar arr[i] != 0 hai, to arr[i] aur arr[j] ko swap karo.
+
+Fir j++ karo.
+
+##### Example
+
+arr = [0,1,0,3,12]
+
+i=0 → 0 skip
+
+i=1 → swap arr[1] aur arr[0] → [1,0,0,3,12]
+
+i=2 → 0 skip
+
+i=3 → swap arr[3] aur arr[1] → [1,3,0,0,12]
+
+i=4 → swap arr[4] aur arr[2] → [1,3,12,0,0]
+
+```java
+class Solution {
+    void moveZeroes(int[] arr) {
+        int n = arr.length;
+        int j = 0; // Position of next non-zero
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] != 0) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                j++;
+            }
+        }
+    }
+}
+Time: O(n)
+Space: O(1)
+```
