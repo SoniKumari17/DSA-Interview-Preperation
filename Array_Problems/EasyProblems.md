@@ -253,3 +253,117 @@ class Solution {
 Time: O(n)
 Space: O(1)
 ```
+#### 4.Find the missing number in an array
+
+Given:
+
+Array of size n-1 containing numbers from 1 to n
+
+Exactly one number is missing
+
+Find the missing number.
+
+Example:
+arr = [1,2,4,5,6], n = 6
+Output: 3
+
+#### 🔹 Approach 1: Brute Force (Check each number)
+Idea
+
+For each number 1 to n, check if it exists in the array.
+
+First number not found → missing.
+```java
+class Solution {
+    int findMissing(int[] arr, int n) {
+        for (int i = 1; i <= n; i++) {
+            boolean found = false;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[j] == i) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return i;
+        }
+        return -1; // not possible
+    }
+}
+Time: O(n^2)
+Space: O(1)
+```
+
+#### 🔹 Approach 2: Using Sum Formula
+Idea
+
+Sum of first n numbers = n*(n+1)/2
+
+Missing number = sum(1..n) - sum(arr)
+
+##### Example
+
+arr = [1,2,4,5,6], n=6
+
+sum(1..6) = 21
+
+sum(arr) = 18
+
+missing = 21 - 18 = 3 ✅
+```java
+class Solution {
+    int findMissing(int[] arr, int n) {
+        int total = n * (n + 1) / 2;
+        int sum = 0;
+        for (int num : arr) sum += num;
+        return total - sum;
+    }
+}
+Time: O(n)
+Space: O(1)
+```
+#### 🔹 Approach 4: Using HashSet (Extra Space)
+Idea
+
+Put all array elements in a HashSet
+
+Iterate 1..n, check which number missing
+```java
+import java.util.HashSet;
+
+class Solution {
+    int findMissing(int[] arr, int n) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : arr) set.add(num);
+
+        for (int i = 1; i <= n; i++) {
+            if (!set.contains(i)) return i;
+        }
+        return -1;
+    }
+}
+Time: O(n)
+Space: O(n)
+```
+#### 🔹 Approach 5: Sort + Scan
+Idea
+
+Sort the array
+
+Compare index + 1 with element
+
+First mismatch → missing
+```java
+import java.util.Arrays;
+
+class Solution {
+    int findMissing(int[] arr, int n) {
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != i + 1) return i + 1;
+        }
+        return n; // missing last number
+    }
+}
+Time: O(n log n)
+Space: O(1) (in-place sort)
+```
