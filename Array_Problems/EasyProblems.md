@@ -367,3 +367,23 @@ class Solution {
 Time: O(n log n)
 Space: O(1) (in-place sort)
 ```
+#### Longest subarray with sum k
+```java
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        // code here
+        int n = arr.length;
+        int maxlen = 0;
+        for(int i = 1;i<n;i++){
+            arr[i] = arr[i-1]+arr[i]; 
+            if(arr[i]==k){
+                maxlen = Math.max(maxlen,i+1);
+            }
+        }
+        
+        return maxlen;
+    }
+TC->O(n)
+SC->(1)
+}
+```
